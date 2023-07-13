@@ -50,7 +50,8 @@ def manga_update(request, id):
                 'title': manga.title,
                 'chapter': manga.chapter,
                 'url': manga.url,
-                'is_finished': manga.is_finished
+                'is_finished': manga.is_finished, 
+                'notes': manga.notes
             }
             
             form = MangaUpdateForm(data=data, instance=manga)

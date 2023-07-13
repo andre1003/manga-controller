@@ -23,3 +23,12 @@ footer {
     height: 8rem;
     object-fit: cover;
 }
+
+div.form-group>#id_username, div.form-group #id_password, #search {
+    background-color: rgba(242, 242, 242, 1);
+    transition: 0.5s;
+}
+
+.rm-underline {
+    text-decoration: none; 
+}

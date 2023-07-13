@@ -47,27 +47,68 @@
     <h1 class="centering"> Manga Register </h1>
 
     <div class="row">
-        <div class="col-lg-2"></div>
+        <div class="col-lg-1"></div>
 
-        <div class="col-lg-8">
+        <div class="col-lg-10">
             <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
-                {% bootstrap_form form %}
+                {{ form.non_field_errors }}
 
-                <input type="button" id="cleanImage" class="btn btn-mobile btn-outline-danger my-2 my-sm-0" value="Remove Image">
-                <figure class="centering">
-                    <img id="img" class="img-fluid rounded profile-img" style="margin-top: 1rem;">
-                </figure>
-        
-                <div class="row">
-                    <div class="col d-flex align-right">
+                <fieldset class="form-group row g-3 mt-4">                    
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label for="{{ form.title.id_for_label }}">Manga title:</label>
+                            {{ form.title }}
+                            {{ form.title.errors }}
+                        </div>
+                    </div>
+
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="{{ form.chapter.id_for_label }}">Current chapter:</label>
+                            {{ form.chapter }}
+                            {{ form.chapter.errors }}
+                        </div>
+                    </div>
+
+                
+                    <div class="col-8">
+                        <div class="form-group">
+                            <label for="{{ form.url.id_for_label }}">Manga URL:</label>
+                            {{ form.url }}
+                            {{ form.url.errors }}
+                        </div>
+                    </div>
+
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="{{ form.image.id_for_label }}">Manga image:</label>
+                            {{ form.image }}
+                            {{ form.image.errors }}
+
+                            <input type="button" id="cleanImage" class="btn btn-mobile btn-outline-danger" style="margin-top: 1rem;" value="Remove Image">
+                            <figure>
+                                <img id="img" class="img-fluid rounded profile-img manga-card-img" style="margin-top: 1rem;">
+                            </figure>
+                        </div>
+                    </div>
+
+                    <div class="col-8">
+                        <div class="form-group">
+                            <label for="{{ form.notes.id_for_label }}">Notes:</label>
+                            {{ form.notes }}
+                            {{ form.notes.errors }}
+                        </div>
+                    </div>
+
+                    <div class="col-12 d-flex align-right">
                         <button type="submit" class="btn btn-primary"> Register </button>
                     </div>
-                </div>
+                </fieldset>
             </form>
         </div>
 
-        <div class="col-lg-2"></div>
+        <div class="col-lg-1"></div>
     </div>
     
 {% endblock body %}

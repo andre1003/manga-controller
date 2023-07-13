@@ -4,14 +4,26 @@
 
 {% block title %} Manga Update {% endblock title %}
 
+{% block js_scripts %}
+<script>
+    $(function() {
+        const allElements = document.querySelectorAll('.is-valid');
+        allElements.forEach((element) => {
+            console.log("OI");
+            element.classList.remove('is-valid');
+        });
+    });
+</script>
+{% endblock js_scripts %}
+
 
 {% block body %}
     <h1 class="centering"> Manga Update </h1>
 
     <div class="row space-top">
-        <div class="col-lg-4"></div>
+        <div class="col-lg-3"></div>
 
-        <div class="col-lg-4">
+        <div class="col-lg-6">
             <div class="card">
                 {% if img %}
                     <img src="{{ img.url }}" class="card-img-top">
@@ -40,7 +52,7 @@
             </div>
         </div>
 
-        <div class="col-lg-4"></div>
+        <div class="col-lg-3"></div>
     </div>
     
 {% endblock body %}
