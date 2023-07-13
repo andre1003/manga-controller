@@ -1,0 +1,25 @@
+.align-right {
+    justify-content: end;
+}
+
+.centering {
+    text-align: center;
+    justify-content: center;
+}
+
+hr.divider {
+    border-top: 1px solid #bbb;
+}
+
+footer, .space-top {
+    margin-top: 2rem;
+}
+
+footer {
+    margin-bottom: 1rem;
+}
+
+.manga-card-img {
+    height: 8rem;
+    object-fit: cover;
+}

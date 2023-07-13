@@ -1,0 +1,46 @@
+{% extends 'base/base.html' %}
+{% load bootstrap5 %}
+
+
+{% block title %} Manga Update {% endblock title %}
+
+
+{% block body %}
+    <h1 class="centering"> Manga Update </h1>
+
+    <div class="row space-top">
+        <div class="col-lg-4"></div>
+
+        <div class="col-lg-4">
+            <div class="card">
+                {% if img %}
+                    <img src="{{ img.url }}" class="card-img-top">
+                {% endif %}
+                
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        {% bootstrap_form form %}
+                
+                        <div class="row">
+                            <div class="col d-flex centering">
+                                <a href="{% url 'manga_delete' id %}" class="btn btn-danger"> Delete </a>
+                            </div>
+
+                            <div class="col d-flex centering">
+                                <a href="{{ url }}" class="btn btn-success" target="_blank"> Continue </a>
+                            </div>
+
+                            <div class="col d-flex centering">
+                                <button type="submit" class="btn btn-primary"> Update </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4"></div>
+    </div>
+    
+{% endblock body %}
