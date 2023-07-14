@@ -63,11 +63,19 @@
                         </div>
                     </div>
 
-                    <div class="col-4">
+                    <div class="col-2">
                         <div class="form-group">
                             <label for="{{ form.chapter.id_for_label }}">Current chapter:</label>
                             {{ form.chapter }}
                             {{ form.chapter.errors }}
+                        </div>
+                    </div>
+
+                    <div class="col-2">
+                        <div class="form-group">
+                            <label for="{{ form.status.id_for_label }}">Status:</label>
+                            {{ form.status }}
+                            {{ form.status.errors }}
                         </div>
                     </div>
 

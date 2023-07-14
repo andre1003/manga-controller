@@ -5,6 +5,13 @@ from users.models import User
 
 
 class Manga(models.Model):
+    STATUS_CHOICE = (
+        (0, 'Ongoing'),
+        (1, 'Finished'),
+        (2, 'Wish to read'),
+        (3, 'Dropped')
+    )
+
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     
     title = models.CharField(max_length=40)
@@ -13,7 +20,8 @@ class Manga(models.Model):
 
     url = models.URLField(max_length=200, default=None, blank=True, null=True, help_text='Works better with Mangalivre website.')
 
-    is_finished = models.BooleanField(default=False)
+    #is_finished = models.BooleanField(default=False)
+    status = models.IntegerField(choices=STATUS_CHOICE, default=0)
 
     notes = models.TextField(max_length=500, default='', blank=True, null=True)
 

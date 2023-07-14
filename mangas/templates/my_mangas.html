@@ -13,13 +13,13 @@
         <p class="centering">Add one <a href="{% url 'manga_register' %}">here</a>.</p>
     {% else %}
         {% if active_mangas %}
-            <legend class="border-bottom mb-4 centering"> Active Mangas </legend>
+            <legend class="border-bottom mb-2 pb-2 centering"> Active Mangas </legend>
             <div class="card-group" style="justify-content: center;">
                 {% for manga in active_mangas %}
                     
                     <div class="col-2 mb-3 mb-sm-0 centering" style="margin:1rem;">
                         <a href="{% url 'manga_update' manga.id %}" class="rm-underline"> 
-                            <div class="card">
+                            <div class="card bg-primary-subtle">
                                 {% if manga.image %}
                                     <img src="{{ manga.image.url }}" class="card-img-top manga-card-img">
                                 {% endif %}
@@ -37,18 +37,62 @@
             </div>
         {% endif %}
 
-        {% if finished_mangas %}
-            <legend class="border-bottom mb-4 centering mt-4"> Finished Mangas </legend>
+        {% if wish_mangas %}
+            <legend class="border-bottom mb-2 pb-2 centering mt-4"> Wish to Read Mangas </legend>
             <div class="card-group" style="justify-content: center;">
-                {% for manga in finished_mangas %}
+                {% for manga in wish_mangas %}
                     <div class="col-2 mb-3 mb-sm-0 centering" style="margin:1rem;">
                         <a href="{% url 'manga_update' manga.id %}" class="rm-underline"> 
-                            <div class="card text-bg-secondary mb-3">
+                            <div class="card bg-warning-subtle">
                                 {% if manga.image %}
                                     <img src="{{ manga.image.url }}" class="card-img-top manga-card-img">
                                 {% endif %}
                                 <div class="card-body">
-                                    <span class="badge rounded-pill text-bg-success">Read</span>
+                                    <span class="badge rounded-pill text-bg-warning">Wish to Read</span>
+                                    <h5 class="card-title"> {{ manga.title }} </h5>
+                                    <p class="card-text sm">{{ manga.chapter }} </p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% if dropped_mangas %}
+            <legend class="border-bottom mb-2 pb-2 centering mt-4"> Dropped Mangas </legend>
+            <div class="card-group" style="justify-content: center;">
+                {% for manga in dropped_mangas %}
+                    <div class="col-2 mb-3 mb-sm-0 centering" style="margin:1rem;">
+                        <a href="{% url 'manga_update' manga.id %}" class="rm-underline"> 
+                            <div class="card bg-danger-subtle">
+                                {% if manga.image %}
+                                    <img src="{{ manga.image.url }}" class="card-img-top manga-card-img">
+                                {% endif %}
+                                <div class="card-body">
+                                    <span class="badge rounded-pill text-bg-danger">Dropped</span>
+                                    <h5 class="card-title"> {{ manga.title }} </h5>
+                                    <p class="card-text sm">{{ manga.chapter }} </p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% if finished_mangas %}
+            <legend class="border-bottom mb-2 pb-2 centering mt-4"> Finished Mangas </legend>
+            <div class="card-group" style="justify-content: center;">
+                {% for manga in finished_mangas %}
+                    <div class="col-2 mb-3 mb-sm-0 centering" style="margin:1rem;">
+                        <a href="{% url 'manga_update' manga.id %}" class="rm-underline"> 
+                            <div class="card bg-success-subtle mb-3">
+                                {% if manga.image %}
+                                    <img src="{{ manga.image.url }}" class="card-img-top manga-card-img">
+                                {% endif %}
+                                <div class="card-body">
+                                    <span class="badge rounded-pill text-bg-success">Finished</span>
                                     <h5 class="card-title"> {{ manga.title }} </h5>
                                     <p class="card-text sm">{{ manga.chapter }} </p>
                                 </div>

@@ -28,13 +28,17 @@ def my_mangas(request):
     mangas = True if Manga.objects.filter(owner=request.user) else False 
     
     if mangas:
-        finished_mangas = Manga.objects.filter(owner=request.user, is_finished=True)
-        active_mangas = Manga.objects.filter(owner=request.user, is_finished=False)
+        active_mangas = Manga.objects.filter(owner=request.user, status=0)
+        finished_mangas = Manga.objects.filter(owner=request.user, status=1)
+        wish_mangas = Manga.objects.filter(owner=request.user, status=2)
+        dropped_mangas = Manga.objects.filter(owner=request.user, status=3)
 
     context = {
         'mangas': mangas,
-        'finished_mangas': finished_mangas or None,
         'active_mangas': active_mangas or None,
+        'finished_mangas': finished_mangas or None,
+        'wish_mangas': wish_mangas or None,
+        'dropped_mangas': dropped_mangas or None,
     }
 
     return render(request, 'my_mangas.html', context)
@@ -44,25 +48,24 @@ def my_mangas(request):
 def manga_update(request, id):
     try:
         manga = Manga.objects.get(pk=id)
-        url = f'{manga.url}{manga.chapter}#/!page0'
         if request.method == 'GET':
             data = {
                 'title': manga.title,
                 'chapter': manga.chapter,
                 'url': manga.url,
-                'is_finished': manga.is_finished, 
+                'status': manga.status, 
                 'notes': manga.notes
             }
             
             form = MangaUpdateForm(data=data, instance=manga)
             img = manga.image
 
-            return render(request, 'update_manga.html', {'form': form, 'img': img, 'id': id, 'url': url})
+            return render(request, 'update_manga.html', {'form': form, 'img': img, 'id': id, 'url': manga.url})
         
         elif request.method == 'POST':
             form = MangaUpdateForm(request.POST, instance=manga)
             form.save()
-            return redirect('my_mangas')
+            return redirect('manga_update', id)
         
     except:
         messages.error(request, 'Something went wrong when updating manga!')
