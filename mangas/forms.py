@@ -62,7 +62,7 @@ class MangaUpdateForm(forms.ModelForm):
                 }
             ),
 
-            'chapter': forms.TextInput(
+            'chapter': forms.NumberInput(
                 attrs={
                     'class': 'form-control',
                 }

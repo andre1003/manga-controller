@@ -1,0 +1,89 @@
+{% extends 'base/base.html' %}
+{% load bootstrap5 %}
+
+
+{% block title %} Manga Collection Register {% endblock title %}
+
+{% block js_scripts %}
+<script type="text/javascript">
+    // Function for show remove option for the image
+    $(function() {
+        $('#leg').hide(); // Hide the legend
+        $('#cleanImage').hide(); // Hide clean image button
+        $('#id_image').change(function() { // If any file has been updated
+            const file = $(this)[0].files[0]; // Gets the fist (and only) file updated
+            const fileReader = new FileReader(); // Instance FileReader
+            fileReader.onloadend = function() { // When upload has been completed
+                $('#leg').show(); // Show legend
+                $('#img').attr('src', fileReader.result); // Show image preview
+                $('#cleanImage').show(); // Show clean image button
+            }
+            fileReader.readAsDataURL(file); // Read the file as an url
+        });
+    });
+
+    // Function for removing id
+    $(function() {
+        $('#id_username').attr('id', ''); // Removes id_username attribute
+    });
+
+    // Function for removing the upload image
+    $(document).ready(function() { // When docment is ready
+        $('#cleanImage').on('click', function(e) { // When the clean button is clicked
+            var $el = $('#id_image'); // Gets the image
+            $el.wrap('<form>').closest('form').get(0).reset(); // Reset the input
+            $el.unwrap(); // Removes the element's parent
+            $('#img').attr('src', ''); // Remove the src attribute from img tag
+            $('#cleanImage').hide(); // Hide the clean button
+            $('#leg').hide(); // Hide the legend
+        });
+    });
+</script>
+{% endblock js_scripts %}
+
+
+
+{% block body %}
+    <h1 class="centering"> Manga Collection Register </h1>
+
+    <div class="row">
+        <div class="col-lg-1"></div>
+
+        <div class="col-lg-10">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.non_field_errors }}
+
+                <fieldset class="form-group row g-3 mt-4">                    
+                    <div class="col-8">
+                        <div class="form-group">
+                            <label for="{{ form.title.id_for_label }}">Manga title:</label>
+                            {{ form.title }}
+                            {{ form.title.errors }}
+                        </div>
+                    </div>
+
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="{{ form.image.id_for_label }}">Manga image:</label>
+                            {{ form.image }}
+                            {{ form.image.errors }}
+
+                            <input type="button" id="cleanImage" class="btn btn-mobile btn-outline-danger" style="margin-top: 1rem;" value="Remove Image">
+                            <figure>
+                                <img id="img" class="img-fluid rounded profile-img manga-card-img" style="margin-top: 1rem;">
+                            </figure>
+                        </div>
+                    </div>
+
+                    <div class="col-12 d-flex align-right">
+                        <button type="submit" class="btn btn-primary"> Register </button>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+
+        <div class="col-lg-1"></div>
+    </div>
+    
+{% endblock body %}

@@ -1,0 +1,98 @@
+{% extends 'base/base.html' %}
+{% load bootstrap5 %}
+
+
+{% block title %} Manga Update {% endblock title %}
+
+{% block js_scripts %}
+<script>
+    $(function() {
+        const allElements = document.querySelectorAll('.is-valid');
+        allElements.forEach((element) => {
+            element.classList.remove('is-valid');
+        });
+    });
+</script>
+{% endblock js_scripts %}
+
+
+{% block body %}
+    <h1 class="centering"> Manga Update </h1>
+
+    <div class="row space-top">
+        <div class="col-lg-3"></div>
+
+        <div class="col-lg-6">
+            <div class="card">
+                {% if img %}
+                    <img src="{{ img.url }}" class="card-img-top">
+                {% endif %}
+                
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="{{ form.title.id_for_label }}">Manga title:</label>
+                                    {{ form.title }}
+                                    {{ form.title.errors }}
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="{{ form.chapter.id_for_label }}">Current chapter:</label>
+                                    {{ form.chapter }}
+                                    {{ form.chapter.errors }}
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="{{ form.status.id_for_label }}">Status:</label>
+                                    {{ form.status }}
+                                    {{ form.status.errors }}
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="{{ form.url.id_for_label }}">Manga URL:</label>
+                                    {{ form.url }}
+                                    {{ form.url.errors }}
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="{{ form.notes.id_for_label }}">Notes:</label>
+                                    {{ form.notes }}
+                                    {{ form.notes.errors }}
+                                </div>
+                            </div>
+                        </div>
+                        
+                
+                        <div class="row mt-4">
+                            <div class="col d-flex centering">
+                                <a href="{% url 'manga_delete' id %}" class="btn btn-danger"> Delete </a>
+                            </div>
+
+                            <div class="col d-flex centering">
+                                <a href="{{ url }}" class="btn btn-success" target="_blank"> Continue </a>
+                            </div>
+
+                            <div class="col d-flex centering">
+                                <button type="submit" class="btn btn-primary"> Update </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3"></div>
+    </div>
+    
+{% endblock body %}

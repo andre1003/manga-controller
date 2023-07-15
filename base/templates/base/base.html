@@ -51,6 +51,10 @@
                             </li>
 
                             <li class="nav-item">
+                                <a href="{% url 'collection_register' %}" class="nav-link activated">Add Collection</a>
+                            </li>
+
+                            <li class="nav-item">
                                 <a href="{% url 'about' %}" class="nav-link activated">About Us</a>
                             </li>
                         </ul>
@@ -62,6 +66,10 @@
                             {% if user.is_authenticated %}
                                 <li class="nav-item">
                                     <a href="{% url 'my_mangas' %}" class="nav-link activated">My Mangas</a>
+                                </li>
+                                
+                                <li class="nav-item">
+                                    <a href="{% url 'my_collections' %}" class="nav-link activated">My Collections</a>
                                 </li>
 
                                 <li class="nav-item align-self-end">

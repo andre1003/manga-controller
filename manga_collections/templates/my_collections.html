@@ -1,0 +1,90 @@
+{% extends 'base/base.html' %}
+{% load bootstrap5 %}
+
+
+{% block title %} My Collections {% endblock title %}
+
+
+{% block body %}
+    <h1 class="centering" style="margin-bottom: 3rem;"> My Collections </h1>
+
+    {% if not collections %}
+        <h5 class="centering space-top">No collections found!</h5>
+        <p class="centering">Add one <a href="{% url 'collection_register' %}">here</a>.</p>
+    {% else %}
+        {% if active_collections %}
+            <legend class="border-bottom mb-4 centering"> Active Collections </legend>
+            <div class="card-group" style="justify-content: center;">
+                {% for collection in active_collections %}
+                
+                    <div class="col-2 mb-3 mb-sm-0 centering" style="margin:1rem;">
+                        <a href="{% url 'collection_update' collection.id %}" class="rm-underline"> 
+                            <div class="card bg-primary-subtle">
+                                {% if collection.image %}
+                                    <img src="{{ collection.image.url }}" class="card-img-top manga-card-img">
+                                {% endif %}
+                                <div class="card-body">
+                                    <span class="badge rounded-pill text-bg-primary">Ongoing</span>
+                                    <h5 class="card-title"> {{ collection.title }} </h5>
+                                    <!-- <p class="card-text sm">{{ collection.bought }} </p> -->
+                                    
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% if wish_collections %}
+            <legend class="border-bottom mb-4 centering mt-4"> Wishlist </legend>
+            <div class="card-group" style="justify-content: center;">
+                {% for collection in wish_collections %}
+                
+                    <div class="col-2 mb-3 mb-sm-0 centering" style="margin:1rem;">
+                        <a href="{% url 'collection_update' collection.id %}" class="rm-underline"> 
+                            <div class="card bg-warning-subtle">
+                                {% if collection.image %}
+                                    <img src="{{ collection.image.url }}" class="card-img-top manga-card-img">
+                                {% endif %}
+                                <div class="card-body">
+                                    <span class="badge rounded-pill text-bg-warning">Wish</span>
+                                    <h5 class="card-title"> {{ collection.title }} </h5>
+                                    <!-- <p class="card-text sm">{{ collection.bought }} </p> -->
+                                    
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% if finished_collections %}
+            <legend class="border-bottom mb-2 pb-2 centering mt-4"> Finished Collections </legend>
+            <div class="card-group" style="justify-content: center;">
+                {% for collection in finished_collections %}
+                
+                    <div class="col-2 mb-3 mb-sm-0 centering" style="margin:1rem;">
+                        <a href="{% url 'collection_update' collection.id %}" class="rm-underline"> 
+                            <div class="card bg-success-subtle mb-3">
+                                {% if collection.image %}
+                                    <img src="{{ collection.image.url }}" class="card-img-top manga-card-img">
+                                {% endif %}
+                                <div class="card-body">
+                                    <span class="badge rounded-pill text-bg-success">Finished</span>
+                                    <h5 class="card-title"> {{ collection.title }} </h5>
+                                    <!-- <p class="card-text sm">{{ collection.bought }} </p> -->
+                                    
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endif %}
+    
+{% endblock body %}
+
+

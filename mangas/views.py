@@ -27,6 +27,11 @@ def manga_register(request):
 def my_mangas(request):
     mangas = True if Manga.objects.filter(owner=request.user) else False 
     
+    active_mangas = None
+    finished_mangas = None
+    wish_mangas = None
+    dropped_mangas = None
+
     if mangas:
         active_mangas = Manga.objects.filter(owner=request.user, status=0)
         finished_mangas = Manga.objects.filter(owner=request.user, status=1)
@@ -60,7 +65,7 @@ def manga_update(request, id):
             form = MangaUpdateForm(data=data, instance=manga)
             img = manga.image
 
-            return render(request, 'update_manga.html', {'form': form, 'img': img, 'id': id, 'url': manga.url})
+            return render(request, 'manga_update.html', {'form': form, 'img': img, 'id': id, 'url': manga.url})
         
         elif request.method == 'POST':
             form = MangaUpdateForm(request.POST, instance=manga)
@@ -78,10 +83,14 @@ def manga_delete(request, id):
         manga = Manga.objects.get(pk=id)
         manga.image.delete(save=False)
         manga.delete()
-        messages.success(request, 'Manga added successfully!')
+        messages.success(request, 'Manga deleted successfully!')
         
     except:
         messages.error(request, 'No manga found!')
 
     finally:
         return redirect('my_mangas')
+    
+
+
+

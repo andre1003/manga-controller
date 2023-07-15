@@ -9,7 +9,6 @@
     $(function() {
         const allElements = document.querySelectorAll('.is-valid');
         allElements.forEach((element) => {
-            console.log("OI");
             element.classList.remove('is-valid');
         });
     });
@@ -18,7 +17,7 @@
 
 
 {% block body %}
-    <h1 class="centering"> Manga Update </h1>
+    <h1 class="centering"> Collection Update </h1>
 
     <div class="row space-top">
         <div class="col-lg-3"></div>
@@ -35,17 +34,9 @@
                         <div class="row g-3">
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label for="{{ form.title.id_for_label }}">Manga title:</label>
+                                    <label for="{{ form.title.id_for_label }}">Manga collection title:</label>
                                     {{ form.title }}
                                     {{ form.title.errors }}
-                                </div>
-                            </div>
-
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <label for="{{ form.chapter.id_for_label }}">Current chapter:</label>
-                                    {{ form.chapter }}
-                                    {{ form.chapter.errors }}
                                 </div>
                             </div>
 
@@ -57,19 +48,18 @@
                                 </div>
                             </div>
 
-                            <div class="col-12">
+                            <div class="col-6">
                                 <div class="form-group">
-                                    <label for="{{ form.url.id_for_label }}">Manga URL:</label>
-                                    {{ form.url }}
-                                    {{ form.url.errors }}
+                                    <label for="{{ form.want.id_for_label }}">Volumes you want to buy:</label>
+                                    {{ form.want }}
+                                    {{ form.want.errors }}
                                 </div>
                             </div>
-
+                            
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label for="{{ form.notes.id_for_label }}">Notes:</label>
-                                    {{ form.notes }}
-                                    {{ form.notes.errors }}
+                                    <label>Your volumes:</label>
+                                    {{ bought }}
                                 </div>
                             </div>
                         </div>
@@ -77,11 +67,11 @@
                 
                         <div class="row mt-4">
                             <div class="col d-flex centering">
-                                <a href="{% url 'manga_delete' id %}" class="btn btn-danger"> Delete </a>
+                                <a href="{% url 'collection_delete' id %}" class="btn btn-danger"> Delete Collection </a>
                             </div>
 
                             <div class="col d-flex centering">
-                                <a href="{{ url }}" class="btn btn-success" target="_blank"> Continue </a>
+                                <button type="submit" class="btn btn-warning" name="delete"> Delete Volumes </button>
                             </div>
 
                             <div class="col d-flex centering">
