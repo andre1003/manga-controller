@@ -1,7 +1,7 @@
 from uuid import uuid4
 
 from django.db import models
-from users.models import User
+from django.conf import settings
 
 
 class Manga(models.Model):
@@ -25,7 +25,7 @@ class Manga(models.Model):
 
     notes = models.TextField(max_length=500, default='', blank=True, null=True)
 
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title

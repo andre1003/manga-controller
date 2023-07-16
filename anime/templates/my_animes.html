@@ -1,0 +1,112 @@
+{% extends 'base/base.html' %}
+{% load bootstrap5 %}
+
+
+{% block title %} My animes {% endblock title %}
+
+
+{% block body %}
+    <h1 class="centering" style="margin-bottom: 3rem;"> My Animes </h1>
+
+    {% if not has_anime %}
+        <h5 class="centering space-top">No animes found!</h5>
+        <p class="centering">Add one <a href="{% url 'anime_register' %}">here</a>.</p>
+    {% else %}
+        {% if active_animes %}
+            <legend class="border-bottom mb-2 pb-2 centering"> Active Animes </legend>
+            <div class="card-group" style="justify-content: center;">
+                {% for anime in active_animes %}
+                    
+                    <div class="col-2 mb-3 mb-sm-0 centering" style="margin:1rem;">
+                        <a href="{% url 'anime_update' anime.id %}" class="rm-underline"> 
+                            <div class="card bg-primary-subtle">
+                                {% if anime.image %}
+                                    <img src="{{ anime.image.url }}" class="card-img-top manga-card-img">
+                                {% endif %}
+                                <div class="card-body">
+                                    <span class="badge rounded-pill text-bg-primary">Watching</span>
+                                    <h5 class="card-title"> {{ anime.title }} </h5>
+                                    <p class="card-text sm">{{ anime.episode }} </p>
+                                    
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% if wish_animes %}
+            <legend class="border-bottom mb-2 pb-2 centering"> Wishlist </legend>
+            <div class="card-group" style="justify-content: center;">
+                {% for anime in wish_animes %}
+                    
+                    <div class="col-2 mb-3 mb-sm-0 centering" style="margin:1rem;">
+                        <a href="{% url 'anime_update' anime.id %}" class="rm-underline"> 
+                            <div class="card bg-warning-subtle">
+                                {% if anime.image %}
+                                    <img src="{{ anime.image.url }}" class="card-img-top manga-card-img">
+                                {% endif %}
+                                <div class="card-body">
+                                    <span class="badge rounded-pill text-bg-warning">Want to Watch</span>
+                                    <h5 class="card-title"> {{ anime.title }} </h5>
+                                    <p class="card-text sm">{{ anime.episode }} </p>
+                                    
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% if stopped_animes %}
+            <legend class="border-bottom mb-2 pb-2 centering mt-4"> Stopped Animes </legend>
+            <div class="card-group" style="justify-content: center;">
+                {% for anime in stopped_animes %}
+                    <div class="col-2 mb-3 mb-sm-0 centering" style="margin:1rem;">
+                        <a href="{% url 'anime_update' anime.id %}" class="rm-underline"> 
+                            <div class="card bg-danger-subtle">
+                                {% if anime.image %}
+                                    <img src="{{ anime.image.url }}" class="card-img-top manga-card-img">
+                                {% endif %}
+                                <div class="card-body">
+                                    <span class="badge rounded-pill text-bg-danger">Stopped</span>
+                                    <h5 class="card-title"> {{ anime.title }} </h5>
+                                    <p class="card-text sm">{{ anime.chapter }} </p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% if finished_animes %}
+            <legend class="border-bottom mb-2 pb-2 centering mt-4"> Finished Animes </legend>
+            <div class="card-group" style="justify-content: center;">
+                {% for anime in finished_animes %}
+                    <div class="col-2 mb-3 mb-sm-0 centering" style="margin:1rem;">
+                        <a href="{% url 'anime_update' anime.id %}" class="rm-underline"> 
+                            <div class="card bg-success-subtle mb-3">
+                                {% if anime.image %}
+                                    <img src="{{ anime.image.url }}" class="card-img-top manga-card-img">
+                                {% endif %}
+                                <div class="card-body">
+                                    <span class="badge rounded-pill text-bg-success">Finished</span>
+                                    <h5 class="card-title"> {{ anime.title }} </h5>
+                                    <p class="card-text sm">{{ anime.chapter }} </p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endif %}
+    
+{% endblock body %}
+
+

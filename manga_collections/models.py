@@ -1,7 +1,7 @@
 from uuid import uuid4
 
 from django.db import models
-from users.models import User
+from django.conf import settings
 
 import simplejson as json
 
@@ -21,7 +21,7 @@ class MangaCollection(models.Model):
 
     status = models.IntegerField(choices=STATUS_CHOICE, default=0)
 
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title

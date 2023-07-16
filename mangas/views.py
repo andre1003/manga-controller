@@ -6,12 +6,15 @@ from mangas.forms import MangaForm, MangaUpdateForm
 from mangas.models import Manga
 
 
+# Manga register view
 @login_required(login_url='login')
 def manga_register(request):
+    # GET method, return empty form
     if request.method == 'GET':
         form = MangaForm()
         return render(request, 'manga_register.html', {'form': form})
     
+    # POST methdo, save new manga
     elif request.method == 'POST':
         form = MangaForm(request.POST, request.FILES)
         if form.is_valid():
@@ -23,21 +26,26 @@ def manga_register(request):
             return redirect('my_mangas')
 
 
+# My mangas view
 @login_required(login_url='login')
 def my_mangas(request):
+    # Check if there is any manga for this user
     mangas = True if Manga.objects.filter(owner=request.user) else False 
     
+    # Define mangas by status
     active_mangas = None
     finished_mangas = None
     wish_mangas = None
     dropped_mangas = None
 
+    # If there is any manga for this user, get them
     if mangas:
         active_mangas = Manga.objects.filter(owner=request.user, status=0)
         finished_mangas = Manga.objects.filter(owner=request.user, status=1)
         wish_mangas = Manga.objects.filter(owner=request.user, status=2)
         dropped_mangas = Manga.objects.filter(owner=request.user, status=3)
 
+    # Define view context
     context = {
         'mangas': mangas,
         'active_mangas': active_mangas or None,
@@ -49,34 +57,32 @@ def my_mangas(request):
     return render(request, 'my_mangas.html', context)
 
 
+# Manga update view
 @login_required(login_url='login')
 def manga_update(request, id):
     try:
+        # Get manga by id
         manga = Manga.objects.get(pk=id)
-        if request.method == 'GET':
-            data = {
-                'title': manga.title,
-                'chapter': manga.chapter,
-                'url': manga.url,
-                'status': manga.status, 
-                'notes': manga.notes
-            }
-            
-            form = MangaUpdateForm(data=data, instance=manga)
-            img = manga.image
 
+        # GET method. return form with current info
+        if request.method == 'GET':            
+            form = MangaUpdateForm(instance=manga)
+            img = manga.image
             return render(request, 'manga_update.html', {'form': form, 'img': img, 'id': id, 'url': manga.url})
         
+        # POST method, save changes
         elif request.method == 'POST':
             form = MangaUpdateForm(request.POST, instance=manga)
             form.save()
             return redirect('manga_update', id)
         
+    # If any error occur, redirect to my mangas page
     except:
-        messages.error(request, 'Something went wrong when updating manga!')
+        messages.error(request, 'Something went wrong when updating your manga. Try again later!')
         return redirect('my_mangas')
 
 
+# Manga delete view
 @login_required(login_url='login')
 def manga_delete(request, id):
     try:
@@ -90,7 +96,3 @@ def manga_delete(request, id):
 
     finally:
         return redirect('my_mangas')
-    
-
-
-

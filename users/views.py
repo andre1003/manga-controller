@@ -1,9 +1,12 @@
 from django.shortcuts import render, redirect
-from django.contrib import messages
-from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth import authenticate, login, logout
 
-from users.forms import UserCreationForm
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import AuthenticationForm
+
+from users.forms import UserCreationForm, UserChangeForm
+from users.models import User
 
 
 # User register view
@@ -54,3 +57,11 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return redirect('home')
+
+
+# Edit profile
+@login_required(login_url='login')
+def user_update(request):
+    if request.method == 'GET':
+        form = UserChangeForm(instance=request.user)
+        return render(request, 'user_update.html', {'form': form})

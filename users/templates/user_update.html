@@ -1,0 +1,54 @@
+{% extends 'base/base.html' %}
+{% load bootstrap5 %}
+
+
+{% block title %} Edit Profile {% endblock title %}
+
+
+{% block body %}
+    <h1 class="centering"> Edit Profile </h1>
+
+    <div class="row">
+        <div class="col-lg-2"></div>
+
+        <div class="col-lg-8">
+            <form method="post">
+                {% comment %} ['email', 'first_name', 'last_name', 'avatar'] {% endcomment %}
+                {% csrf_token %}
+                <fieldset class="form-group row g-3 mt-4">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label for="{{ form.email.id_for_label }}">E-mail:</label>
+                            {{ form.email }}
+                            {{ form.email.errors }}
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="{{ form.first_name.id_for_label }}">First name:</label>
+                            {{ form.first_name }}
+                            {{ form.first_name.errors }}
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="{{ form.last_name.id_for_label }}">Last name:</label>
+                            {{ form.last_name }}
+                            {{ form.last_name.errors }}
+                        </div>
+                    </div>
+                
+    
+                    <div class="col-12 d-flex align-right">
+                        <button type="submit" class="btn btn-success"> Save Changes </button>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+
+        <div class="col-lg-2"></div>
+    </div>
+    
+{% endblock body %}

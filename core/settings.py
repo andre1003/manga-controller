@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'users',
     'mangas',
     'manga_collections',
+    'anime',
 ]
 
 MIDDLEWARE = [
