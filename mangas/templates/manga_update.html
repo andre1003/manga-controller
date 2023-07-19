@@ -13,6 +13,10 @@
                 element.classList.remove('is-valid');
             });
         });
+
+        function addChapter() {
+            document.getElementById("id_chapter").value++;
+        }
     </script>
 {% endblock js_scripts %}
 
@@ -48,11 +52,17 @@
                                 </div>
                             </div>
 
-                            <div class="col-6">
+                            <div class="col-4">
                                 <div class="form-group">
                                     <label for="{{ form.chapter.id_for_label }}">Current chapter:</label>
                                     {{ form.chapter }}
                                     {{ form.chapter.errors }}
+                                </div>
+                            </div>
+
+                            <div class="col-2">
+                                <div class="form-group">
+                                    <button type="button" class="btn btn-primary mt-4" onclick="addChapter();" style="width: 100%;">Add</button>
                                 </div>
                             </div>
 
